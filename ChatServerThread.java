@@ -5,8 +5,8 @@ import java.net.*;
 public class ChatServerThread extends Thread {
 
     private final Socket socket; // client socket
-    private PrintWriter out; // output stream to client
-    private BufferedReader in; // input stream from client
+    private PrintWriter out; // to this client
+    private BufferedReader in; // from this client
 
     // constructor
     public ChatServerThread(Socket socket) {
@@ -15,33 +15,44 @@ public class ChatServerThread extends Thread {
 
     // main thread method
     public void run() {
-        System.out.println("ServerThread started for client " + socket.getRemoteSocketAddress());
 
-        try (
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        ) {
-            // send welcome messages to client
-            out.println("You are connected to the chat server!");
-            out.println("Type /quit to disconnect.");
+        try {
+            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            this.out = new PrintWriter(socket.getOutputStream(), true);
+        
+            // prompt client for username
+            out.println("ENTER_USERNAME");
+            String username = in.readLine();
 
+            // announce client joining
+            ChatServer.broadcastMessage("SERVER: " + username + " has joined the chat. Type /quit to exit.", this);
+
+
+            // read and broadcast messages from client
             String line;
             // continuously read messages from client
             while ((line = in.readLine()) != null) {
-                System.out.println("Received from " + socket.getRemoteSocketAddress() + ": " + line);
-
                 // check for quit command
                 if ("/quit".equalsIgnoreCase(line.trim())) {
-                    System.out.println("Client " + socket.getRemoteSocketAddress() + " disconnected.");
+                    ChatServer.broadcastMessage(username + " has left the chat!", this);
+                    ChatServer.removeClient(this);
                     break;
                 }
+                // broadcast message to other clients
+                String message = username + ": " + line;
+                ChatServer.broadcastMessage(message, this);
 
-                // TODO: Broadcast message to other clients
             }
 
         } catch (IOException e) {
-            System.out.println("Exception: " + e.getMessage());
+            System.out.println("I/OException: " + socket.getRemoteSocketAddress() + ": " + e.getMessage());
             return;
         }
+    }
+
+    // method to send a message to the client
+    public void sendMessage(String message) {
+            out.println(message);
+        
     }
 }

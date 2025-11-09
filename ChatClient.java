@@ -12,7 +12,7 @@ public class ChatClient {
         }
 
         String host = args[0];
-        int port = 43221; // fixed port to match server
+        int port = 43221;
 
         try (
             Socket socket = new Socket(host, port);
@@ -21,15 +21,15 @@ public class ChatClient {
             BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in)); // read user input from console
         ) {
             System.out.println("Connected to chat server at " + args[0] + ": 43221");
-            
-            // read and print welcome messages from server
-            for (int i = 0; i < 2; i++) {
-                String serverMessage = serverIn.readLine();
-                if (serverMessage == null) {
-                    break;
-                }
-                System.out.println("Server: " + serverMessage);
-            }
+
+            // username prompt
+            String prompt = serverIn.readLine();
+            if ("ENTER_USERNAME".equals(prompt)) {
+                System.out.print("Enter username: ");
+                String username = userIn.readLine();
+                if (username == null || username.trim().isEmpty()) username = "Guest";
+                serverOut.println(username);
+            } 
 
             // start a separate thread to continuously read messages from server
             Thread reader = new Thread(() -> {
@@ -49,6 +49,7 @@ public class ChatClient {
             while ((input = userIn.readLine()) != null) {
                 serverOut.println(input); // print client message to server console
                 if ("/quit".equalsIgnoreCase(input.trim())) {
+                    System.out.println("Exiting chat...");
                     break;
                 }
             }
