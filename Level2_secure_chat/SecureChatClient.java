@@ -1,8 +1,12 @@
+package Level2_secure_chat;
+
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
-import java.net.*;
+
 
 // main client class
-public class ChatClient {
+public class SecureChatClient {
 
     public static void main(String[] args) throws IOException {
         // check command line arguments for hostname
@@ -14,8 +18,12 @@ public class ChatClient {
         String host = args[0];
         int port = 43221;
 
+        System.setProperty("javax.net.ssl.trustStore", "serverkeystore.jks");
+        System.setProperty("javax.net.ssl.trustStorePassword", "password123");
+
         try (
-            Socket socket = new Socket(host, port);
+            
+            SSLSocket socket = (SSLSocket) SSLSocketFactory.getDefault().createSocket(host, port); // creates SSL Socket instead of basic socket in level 1
             BufferedReader serverIn = new BufferedReader(new InputStreamReader(socket.getInputStream())); // read messages from server
             PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), true); // send messages to server
             BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in)); // read user input from console
@@ -44,7 +52,8 @@ public class ChatClient {
             });
             reader.start();
 
-            // allow user to send messages to server
+            
+           // allow user to send messages to server
             String input;
             while ((input = userIn.readLine()) != null) {
                 serverOut.println(input); // print client message to server console
@@ -53,6 +62,7 @@ public class ChatClient {
                     break;
                 }
             }
+    
             
         } catch (IOException e) {
             System.out.println("Exception: " + e.getMessage());
