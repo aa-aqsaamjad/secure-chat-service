@@ -1,4 +1,4 @@
-package Level2_secure_chat;
+package Level3_mutual_secure_chat;
 
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
@@ -6,7 +6,7 @@ import java.io.*;
 
 
 // main client class
-public class SecureChatClient {
+public class MutualSecureChatClient {
 
     public static void main(String[] args) throws IOException {
         // check command line arguments for hostname
@@ -17,8 +17,13 @@ public class SecureChatClient {
 
         String host = args[0];
         int port = 43221;
+     
+        // integrates client key 
+        System.setProperty("javax.net.ssl.keyStore", "keys/clientkeystore.jks");
+        System.setProperty("javax.net.ssl.keyStorePassword", "123password");
 
-        System.setProperty("javax.net.ssl.trustStore", "keys/serverkeystore.jks");
+        // loads server certificate
+        System.setProperty("javax.net.ssl.trustStore", "keys/clienttruststore.jks");
         System.setProperty("javax.net.ssl.trustStorePassword", "password123");
 
         try (
