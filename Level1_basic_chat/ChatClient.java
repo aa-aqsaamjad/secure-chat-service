@@ -1,3 +1,5 @@
+package Level1_basic_chat;
+
 import java.io.*;
 import java.net.*;
 
@@ -20,7 +22,7 @@ public class ChatClient {
             PrintWriter serverOut = new PrintWriter(socket.getOutputStream(), true); // send messages to server
             BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in)); // read user input from console
         ) {
-            System.out.println("Connected to chat server at " + args[0] + ": 43221");
+            System.out.println("Connected securely to chat server at " + host + ":" + port);
 
             // username prompt
             String prompt = serverIn.readLine();
@@ -44,7 +46,7 @@ public class ChatClient {
             });
             reader.start();
 
-            // allow user to send messages to server
+             // allow user to send messages to server
             String input;
             while ((input = userIn.readLine()) != null) {
                 serverOut.println(input); // print client message to server console

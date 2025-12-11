@@ -52,3 +52,26 @@ By completing this project, we will:
 - Apply **confidentiality, integrity, and authentication** concepts in a practical system.
 - Gain experience in configuring **network firewalls** and **analysing traffic** with Wireshark.
 - Collaborate effectively on a secure software project from design to testing.
+
+
+## Commandf for Secure Chat (Level 2)
+
+Firstly you must cd to src folder (secure-chat-service)
+
+1. javac Level2_secure_chat/*.java  **creates .class files**
+
+
+2. java Level2_secure_chat.SecureChatServer **starts server** 
+
+3. java Level2_secure_chat.SecureChatClient localhost **starts client and chooses host**
+
+
+## Commands for Mutual Secure Chat (Level 3)
+
+Make sure you are in secure-chat-service (src)
+
+1. javac Level3_mutual_secure_chat/*.java
+
+2. java Level3_mutual_secure_chat.MutualSecureChatServer
+
+3. java Level3_mutual_secure_chat.MutualSecureChatClient localhost

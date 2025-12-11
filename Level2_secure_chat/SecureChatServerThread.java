@@ -1,15 +1,18 @@
+package Level2_secure_chat;
+
+import javax.net.ssl.SSLSocket;
 import java.io.*;
-import java.net.*;
+
 
 // thread class to handle communication with a connected client
-public class ChatServerThread extends Thread {
+public class SecureChatServerThread extends Thread {
 
-    private final Socket socket; // client socket
+    private final SSLSocket socket; // client SSL socket
     private PrintWriter out; // to this client
     private BufferedReader in; // from this client
 
     // constructor
-    public ChatServerThread(Socket socket) {
+    public SecureChatServerThread(SSLSocket socket) {
         this.socket = socket;
     }
 
@@ -17,6 +20,8 @@ public class ChatServerThread extends Thread {
     public void run() {
 
         try {
+            socket.startHandshake(); //TLS Handshake
+            
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream(), true);
         
@@ -25,7 +30,7 @@ public class ChatServerThread extends Thread {
             String username = in.readLine();
 
             // announce client joining
-            ChatServer.broadcastMessage("SERVER: " + username + " has joined the chat. Type /quit to exit.", this);
+            SecureChatServer.broadcastMessage("SERVER: " + username + " has joined the chat. Type /quit to exit.", this);
 
 
             // read and broadcast messages from client
@@ -34,13 +39,13 @@ public class ChatServerThread extends Thread {
             while ((line = in.readLine()) != null) {
                 // check for quit command
                 if ("/quit".equalsIgnoreCase(line.trim())) {
-                    ChatServer.broadcastMessage(username + " has left the chat!", this);
-                    ChatServer.removeClient(this);
+                    SecureChatServer.broadcastMessage(username + " has left the chat!", this);
+                    SecureChatServer.removeClient(this);
                     break;
                 }
                 // broadcast message to other clients
                 String message = username + ": " + line;
-                ChatServer.broadcastMessage(message, this);
+                SecureChatServer.broadcastMessage(message, this);
 
             }
 
