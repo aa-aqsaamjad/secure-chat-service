@@ -54,12 +54,22 @@ By completing this project, we will:
 - Collaborate effectively on a secure software project from design to testing.
 
 
-## Commandf for Secure Chat (Level 2)
+## Command for Basic Chat (Level 1)
+
+Firstly you must cd to src folder (secure-chat-service)
+
+1. javac Level1_basic_chat/*.java  **creates .class files**
+
+2. java Level1_basic_chat.ChatServer **starts server** 
+
+3. java Level1_basic_chat.ChatClient localhost **starts client and chooses host**
+
+
+## Command for Secure Chat (Level 2)
 
 Firstly you must cd to src folder (secure-chat-service)
 
 1. javac Level2_secure_chat/*.java  **creates .class files**
-
 
 2. java Level2_secure_chat.SecureChatServer **starts server** 
 
