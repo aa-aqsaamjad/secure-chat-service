@@ -1,12 +1,13 @@
-# 🛡️ Multi-User Secure Chat Service  
-**Module:** CS2SNS – Secure Network Services  
+# 🛡️ Multi-User Secure Chat Service (Group Project — 2 members)
+**Module:** CS2SNS — Secure Network Services  
 **Assessment Weighting:** 50%  
 **Deadline:** 22 December 2025  
 
 ---
 
 ## 👥 Group Information
-**Group Name:** [decide name]
+**Group Name:** AqsaYuvraj
+
 **Team Members:**
 - Aqsa Amjad | 230066670
 - Yuvraj Kular | 210155154  
@@ -14,9 +15,7 @@
 ---
 
 ## 🎯 Project Objectives
-This project aims to design and implement a **multi-user secure chat service** using **Java socket programming**.  
-The system must evolve through 5 levels of functionality and security:
-
+Your group must complete the following **5 levels**, arranged in order of difficulty:
 1. **Level 1:**  
    Develop a multi-user chat server and client using basic sockets (text-based interface).
 
@@ -24,8 +23,7 @@ The system must evolve through 5 levels of functionality and security:
    Implement **SSL/TLS encryption** to ensure message confidentiality over the network.
 
 3. **Level 3:**  
-   Identify one additional network security threat and implement a mitigation control  
-   (e.g., user authentication, input validation, integrity checking).
+   Identify one additional network security threat and implement a mitigation control.
 
 4. **Level 4:**  
    Demonstrate the application working across **two physical machines**, configuring firewall rules to allow only necessary traffic.
@@ -40,9 +38,9 @@ A single ZIP file will be submitted via Blackboard, containing:
 
 | Component | Description |
 |------------|-------------|
-| **Written Report (PDF)** | Max 2000 words total (1000 per member). Includes design, implementation, security controls, and traffic analysis. |
-| **Source Code** | All Java files for server and client, fully commented. |
-| **Video Demo (5 min)** | Walkthrough of all five levels, demonstrating key features and security aspects. |
+| **Written Report (PDF)** | Document design and implementation across all levels. |
+| **Source Code (Java)** | All necessary Java files. |
+| **Video Demo (MP4)** | 5-minute walkthrough of all levels, demonstrating how the code meets requirements. |
 
 ---
 
@@ -53,35 +51,50 @@ By completing this project, we will:
 - Gain experience in configuring **network firewalls** and **analysing traffic** with Wireshark.
 - Collaborate effectively on a secure software project from design to testing.
 
+---
+# Commands / Usage
 
-## Command for Basic Chat (Level 1)
+- First, cd to src folder (secure-chat-service).
+- If using separate physical devices, replace ```localhost``` with the server's IP address.
 
-Firstly you must cd to src folder (secure-chat-service)
+## Level 1 Basic Chat
 
-1. javac Level1_basic_chat/*.java  **creates .class files**
+1. Compile the Level 1 source files:
 
-2. java Level1_basic_chat.ChatServer **starts server** 
+      ```javac Level1_basic_chat/*.java```
+  
+2. Start the server:
 
-3. java Level1_basic_chat.ChatClient localhost **starts client and chooses host**
+      ```java Level1_basic_chat.ChatServer```
 
+3. Start a client
 
-## Command for Secure Chat (Level 2)
+      ```java Level1_basic_chat.ChatClient localhost```
 
-Firstly you must cd to src folder (secure-chat-service)
+## Level 2 Secure Chat
 
-1. javac Level2_secure_chat/*.java  **creates .class files**
+1. Compile the Level 2 source files:
 
-2. java Level2_secure_chat.SecureChatServer **starts server** 
+      ```javac Level2_secure_chat/*.java```
 
-3. java Level2_secure_chat.SecureChatClient localhost **starts client and chooses host**
+2. Start the secure server:
 
+   ```java Level2_secure_chat.SecureChatServer```
 
-## Commands for Mutual Secure Chat (Level 3)
+4. Start a secure client:
 
-Make sure you are in secure-chat-service (src)
+   ```java Level2_secure_chat.SecureChatClient localhost```
 
-1. javac Level3_mutual_secure_chat/*.java
+## Level 3 Mutual Secure Chat
 
-2. java Level3_mutual_secure_chat.MutualSecureChatServer
+1. Compile the Level 3 source files:
 
-3. java Level3_mutual_secure_chat.MutualSecureChatClient localhost
+      ```javac Level3_mutual_secure_chat/*.java```
+
+2. Start the mutual secure server:
+
+      ```java Level3_mutual_secure_chat.MutualSecureChatServer```
+
+3. Start a mutual secure client:
+
+      ```java Level3_mutual_secure_chat.MutualSecureChatClient localhost```
